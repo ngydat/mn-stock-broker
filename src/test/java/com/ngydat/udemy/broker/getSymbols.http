@@ -1,1 +1,1 @@
-GET localhost:8080/symbols/SBFGP
+GET localhost:8080/symbols/filter?offset=1

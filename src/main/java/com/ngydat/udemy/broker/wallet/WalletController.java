@@ -1,9 +1,12 @@
 package com.ngydat.udemy.broker.wallet;
 
 import com.ngydat.udemy.broker.data.InMemoryAccountStore;
+import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Post;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,5 +20,25 @@ public record WalletController(InMemoryAccountStore store) {
     @Get(produces = MediaType.APPLICATION_JSON)
     public Collection<Wallet> get() {
         return store.getWallets(InMemoryAccountStore.ACCOUNT_ID);
+    }
+
+    @Post(
+            value="/deposit",
+            consumes = MediaType.APPLICATION_JSON,
+            produces = MediaType.APPLICATION_JSON
+    )
+    public HttpResponse<Void> depositFiatMoney(@Body DepositFiatMoney deposit) {
+        //Option 1: custom HttpResponse
+        return HttpResponse.ok();
+    }
+
+    @Post(
+            value="/withdraw",
+            consumes = MediaType.APPLICATION_JSON,
+            produces = MediaType.APPLICATION_JSON
+    )
+    public void withdrawFiatMoney(@Body WithdrawFiatMoney withdraw) {
+        //Option 2: custom error processing
+
     }
 }
